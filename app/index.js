@@ -1,51 +1,38 @@
-import "styles/index.scss";
-import $ from "jquery";
+import "styles/index.scss"
+import $ from "jquery"
+import { saveAs } from "file-saver"
 import parse from "./parser/parser"
 
-$("#editor #text").on("input", () => {
-    $("#editor #preview").html(parse($("#editor #text").val()))
+let documentTitle = "Untitled Document"
+
+$("#editor #text").on("change textInput input", () => {
+  $("#editor #preview #editable").html(parse($("#editor #text").val()))
+  $("#document-info-bar #document-info").text(`${documentTitle}`)
 })
 
-$("#top-bar #save").click(() => {
-    const file = new Blob([$("#editor #text").val()], {
-        type: "text/plain"
-    })
-    saveBlob(file, "document.bte")
+$("#toolbar #save-text").click(() => {
+  saveAs(new Blob([$("#editor #text").val()], { type: "text/plain;charset=utf-8" }), "document.bte")
 })
 
-$("#top-bar #open").click(() => {
-    $("#hidden-file-input").click()
-    $("#hidden-file-input").on("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            return
-        }
-        const reader = new FileReader()
-        reader.onload = function (e) {
-            const contents = e.target.result
-            $("#editor #text").text(contents)
-            $("#editor #preview").html(parse($("#editor #text").val()))
-            $(e.target).remove()
-            $("body").append(`<input type="file" accept=".bte" id="hidden-file-input" />`)
-        }
-        reader.readAsText(file)
-    })
+$("#toolbar #save-preview").click(() => {
+  saveAs(new Blob([$("#editor #preview").html()], { type: "text/html;charset=utf-8" }), "document.html")
 })
 
-function saveBlob(blob, fileName) {
-    const url = window.URL.createObjectURL(blob);
+$("#toolbar #open-text").click(() => {
+  $("#hidden-file-input").click()
+})
 
-    const anchorElem = document.createElement("a");
-    anchorElem.style = "display: none";
-    anchorElem.href = url;
-    anchorElem.download = fileName;
-
-    document.body.appendChild(anchorElem);
-    anchorElem.click();
-
-    document.body.removeChild(anchorElem);
-
-    setTimeout(function () {
-        window.URL.revokeObjectURL(url);
-    }, 1000);
-}
+$("#hidden-file-input").change((e) => {
+  const file = e.target.files[0];
+  if (!file) {
+    return
+  }
+  const reader = new FileReader()
+  reader.onload = function (e) {
+    const contents = e.target.result
+    $("#editor #text").val(contents)
+    $("#editor #preview #editable").html(parse($("#editor #text").val()))
+  }
+  reader.readAsText(file)
+  e.target.value = null
+})

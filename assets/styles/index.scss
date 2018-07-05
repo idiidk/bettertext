@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons");
+
 $text-color: #282a36;
-$background:#f8f8f2;
+$background: #f8f8f2;
+
 html {
     box-sizing: border-box;
     color: $text-color;
-    font-family: 'Roboto', sans-serif;
 }
 
 *,
@@ -19,22 +20,29 @@ body {
     overflow-y: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 #wrapper {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background: $background;
-    #top-bar {
+
+    #document-info-bar {
+        width: 100vw;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Roboto", sans-serif;
+    }
+
+    #toolbar {
         width: 100vw;
         height: 70px;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: rgba(0, 0, 0, 0.1);
+
         .item {
             width: 100%;
             height: 100%;
@@ -47,14 +55,17 @@ h1, h2, h3, h4, h5, h6 {
             text-align: center;
             transition: background-color 0.2s;
         }
+
         .item:hover, .item:active {
             background-color: rgba(0, 0, 0, 0.1);
         }
     }
+
     #editor {
         display: flex;
         width: 100vw;
         height: calc(100vh - 70px);
+
         #text {
             height: 100%;
             width: 50vw;
@@ -63,13 +74,16 @@ h1, h2, h3, h4, h5, h6 {
             resize: none;
             outline: none;
             padding: 1vh;
-            font-family: 'Roboto', sans-serif;
+            font-family: "Roboto", sans-serif;
+            font-size: 0.9em;
         }
+
         #seperator {
-          width: 0.1vw;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.1);
+            width: 0.1PC;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
         }
+
         #preview {
             height: 100%;
             width: 50vw;
@@ -79,5 +93,5 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hidden-file-input {
-  display: none;
+    display: none;
 }
