@@ -35,7 +35,7 @@ yarn run dev
 
 ## Meta
 
-Your Name – [@idiidk](https://twitter.com/idiidk)
+Vincent Brouwer – [@idiidk](https://twitter.com/idiidk)
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
